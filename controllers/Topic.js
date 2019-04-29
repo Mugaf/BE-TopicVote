@@ -1,6 +1,8 @@
 require('../models/topic')
 const uniqid = require('uniqid')
 const faker = require('faker')
+const { ObjectLength } = require('../functionlib/codehelper')
+
 exports.Create = (req, res) => {
     let topic = {
         id: uniqid(),
@@ -25,16 +27,35 @@ exports.Read = (req, res) => {
 }
 
 exports.Update = (req, res) => {
-    database.topic.forEach(element => {
-      if(element.id === req.body.id) {
-          element.title = req.body.title
-          element.description = req.body.description
+    let updated = false
+    const updateData = new Promise((resolve, reject) => {
+        database.topic.forEach(element => {
+            if(element.id === req.body.id) {
+                element.title = req.body.title
+                element.description = req.body.description
+                updated = true
+            }
+            resolve(updated)  
+        })
+    })
 
-          res.status(200).json({
-              message: 'data updated!',
-              data: database.topic
-          })
-      }  
+    updateData.then(resolve => {
+        if(resolve){
+            res.status(201).json({
+                message: 'data updated!',
+                data: database.topic
+            })
+        }
+        else{
+            res.status(400).json({
+                message: 'data is not updated please check your topic id\'s!'
+            })
+        }
+    })
+    .catch(err => {
+        res.status(503).json({
+            message: err
+        })
     })
 }
 
