@@ -82,6 +82,30 @@ describe('Topic', () => {
         done()
       })
   })
+  describe('/UPVOTE Topic', () => {
+    it('should upvote a topic and give 200 status code', done => {
+      chai.request(server)
+      .put('/api/topic/upvote')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .send(arrRes[0])
+      .end((err, res) => {
+        res.should.have.status(200)
+      })
+      done()
+    })
+  })
+  describe('/DOWNVOTE Topic', () => {
+    it('should downvote a topic and give 200 status code', done => {
+      chai.request(server)
+      .put('/api/topic/downvote')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .send(arrRes[0])
+      .end((err, res) => {
+        res.should.have.status(200)
+      })
+      done()
+    })
+  })
   describe('/DELETE Topic', () => {
     it('should delete a topic', done => {
       chai.request(server)

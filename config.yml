@@ -1,0 +1,23 @@
+image: node:10.15.0
+
+stages:
+  - build
+  - production
+  
+proses compile:
+  stage: build
+  script: 
+    - npm install
+    - npm run test
+
+production:
+  type: deploy
+  stage: production
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=topicreddit --api-key=1c56cbe2-2f69-461d-825e-cc43911fde8e
+  only:
+    - master
