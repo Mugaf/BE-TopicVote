@@ -2,12 +2,18 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
+let topic = {topic: []}
+global.database = topic
 app.use(cors())
 require('dotenv').config()
 
 const index = require('./routes/index')
-
+app.use(express.json())
+app.use(express.urlencoded({
+  extended: false
+}))
 app.use('/', index)
+
 const port = process.env.PORT || 3000
 
 let server = app.listen(port, (err, res) => {
@@ -19,4 +25,4 @@ let server = app.listen(port, (err, res) => {
     }
   })
 
-  module.exports = { app }
+  module.exports = app // for testing
