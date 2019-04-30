@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
+let topic = {topic: []}
+global.database = topic
 app.use(cors())
 require('dotenv').config()
 

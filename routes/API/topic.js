@@ -7,4 +7,7 @@ router.route('/')
     .get(controllersTopic.Read)
     .put(controllersTopic.Update)
     .delete(controllersTopic.Delete)
+router.put('/upvote', controllersTopic.Upvote)
+router.put('/downvote', controllersTopic.Downvote)
+
 module.exports = router
