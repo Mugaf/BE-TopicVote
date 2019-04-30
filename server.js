@@ -25,4 +25,4 @@ let server = app.listen(port, (err, res) => {
     }
   })
 
-  module.exports = { app }
+  module.exports = app // for testing
